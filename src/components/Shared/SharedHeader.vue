@@ -11,5 +11,6 @@ header {
   height: 70px;
   box-shadow: 0 1px 5px 0 rgba(0, 0, 0, 0.07);
   background-color: #ffffff;
+  margin-bottom: 50px;
 }
 </style>
