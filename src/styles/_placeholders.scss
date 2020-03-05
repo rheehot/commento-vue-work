@@ -1,0 +1,26 @@
+%text-ellipsis {
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+%vertical-ellipsis {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  line-height: 1.1625;
+}
+
+%post-style {
+  height: 179px;
+  border-radius: 5px;
+  -webkit-backdrop-filter: blur(30px);
+  backdrop-filter: blur(30px);
+  border: solid 1px #e1e4e7;
+  background-color: #ffffff;
+  padding: 20px 30px;
+  box-sizing: border-box;
+  margin-bottom: 1rem;
+  cursor: pointer;
+}
