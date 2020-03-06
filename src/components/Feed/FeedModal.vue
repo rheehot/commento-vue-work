@@ -13,14 +13,23 @@
           <label :for="category.id">{{ category.name }}</label>
         </li>
       </ul>
+      <button @click="onClickButton">저장하기</button>
     </div>
   </div>
 </template>
 
 <script>
-import { TOGGLE_CATEGORY } from "../../store/index";
+import { TOGGLE_FILTER, TOGGLE_CATEGORY } from "../../store/index";
 
 export default {
+  data() {
+    return {
+      checkedElements: this.$store.state.categories.map(c => ({
+        id: c.id,
+        checked: c.checked
+      }))
+    };
+  },
   computed: {
     categories() {
       return this.$store.state.categories;
@@ -28,13 +37,27 @@ export default {
   },
   methods: {
     onChangeCheckbox(e) {
-      this.$store.commit(TOGGLE_CATEGORY, { id: e.target.id });
+      const id = Number(e.target.id);
+      const targetIdx = this.checkedElements.findIndex(c => c.id === id);
+      this.$set(
+        this.checkedElements[targetIdx],
+        "checked",
+        !this.checkedElements[targetIdx]["checked"]
+      );
+    },
+    onClickButton() {
+      this.$store.commit(TOGGLE_FILTER);
+      this.$store.commit(TOGGLE_CATEGORY, {
+        checkedIds: this.checkedElements.filter(c => c.checked).map(c => c.id)
+      });
     }
   }
 };
 </script>
 
 <style lang="scss" scoped>
+@import "../../styles/_variables.scss";
+
 .background {
   position: absolute;
   z-index: 1;
@@ -86,13 +109,29 @@ export default {
       margin: -2px 8px 0 0;
       text-align: center;
       vertical-align: middle;
-      border: 1px solid #e1e4e7;
+      border: 1px solid $primary-grey;
     }
 
     input[type="checkbox"]:checked + label:before {
       content: "\2714";
       color: #000000;
     }
+  }
+
+  button {
+    display: block;
+    background-color: $primary-green;
+    color: white;
+    padding: 8px 20px;
+    border-radius: 3px;
+    margin-left: auto;
+    margin-right: 1rem;
+    cursor: pointer;
+  }
+
+  @media (max-width: 480px) {
+    width: 337px;
+    height: 268px;
   }
 }
 </style>

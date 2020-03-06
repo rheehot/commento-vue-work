@@ -47,6 +47,8 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import "../../styles/_variables.scss";
+
 .filter {
   $filter: &;
   display: flex;
@@ -61,7 +63,7 @@ export default {
     width: 48px;
     height: 24px;
     border-radius: 3px;
-    border: solid 1px #e1e4e7;
+    border: solid 1px $primary-grey;
     background-color: #ffffff;
     cursor: pointer;
   }

@@ -47,7 +47,7 @@ export default {
 
     #{$post}__vertical {
       margin: 0 10px;
-      color: #e1e4e7;
+      color: $primary-grey;
     }
   }
 
@@ -67,7 +67,7 @@ export default {
 .divider {
   height: 2px;
   border: none;
-  background-color: #e1e4e7;
+  background-color: $primary-grey;
   margin-top: 11px;
   margin-bottom: 15px;
 }

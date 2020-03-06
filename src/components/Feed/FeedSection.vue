@@ -11,9 +11,12 @@
             :key="index"
           ></feed-post>
           <infinite-loading
-            :identifier="ord"
+            :identifier="infiniteId"
             @infinite="infiniteHandler"
-          ></infinite-loading>
+          >
+            <div slot="no-more">더 이상의 결과가 없습니다.</div>
+            <div slot="no-results">결과가 없습니다.</div>
+          </infinite-loading>
         </div>
       </div>
     </div>
@@ -38,7 +41,13 @@ export default {
     InfiniteLoading
   },
   computed: {
-    ...mapState(["posts", "ord", "categories", "limit", "isFilterClicked"])
+    ...mapState(["posts", "ord", "categories", "limit", "isFilterClicked"]),
+    infiniteId() {
+      return (
+        this.ord +
+        this.categories.filter(c => c.checked).reduce((a, c) => a + c.name, 0)
+      );
+    }
   },
   methods: {
     infiniteHandler($state) {

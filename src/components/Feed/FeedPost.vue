@@ -1,9 +1,11 @@
 <template>
   <div>
-    <feed-real
-      v-if="post.categoryName && post.categoryName.length"
-      :post="post"
-    ></feed-real>
+    <router-link :to="{ path: `/detail/${post.id}` }">
+      <feed-real
+        v-if="post.categoryName && post.categoryName.length"
+        :post="post"
+      ></feed-real>
+    </router-link>
     <feed-ad v-if="post.img && post.img.length" :post="post"></feed-ad>
   </div>
 </template>

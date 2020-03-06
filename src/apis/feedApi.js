@@ -18,13 +18,14 @@ const getAds = async limit => {
 };
 
 export default async function getPostsFromApi(ord, categories, limit) {
+  if (categories.filter(c => c.checked).length === 0) return [];
   const ads = await getAds(limit / 4);
   const response = await axios.get("/api/list", {
     params: {
       ord,
       limit,
       page: 1,
-      category: categories.map(category => category.id)
+      category: categories.filter(c => c.checked).map(c => c.id)
     },
     paramsSerializer: params => qs.stringify(params)
   });
@@ -36,6 +37,7 @@ export default async function getPostsFromApi(ord, categories, limit) {
     if (i !== 0 && i % 4 === 0) result.push(ads[adIdx]);
     const item = list[i];
     result.push({
+      id: item.id,
       categoryName: categories.filter(
         category => category.id === item.category_id
       )[0].name,
