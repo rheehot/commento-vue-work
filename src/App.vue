@@ -1,19 +1,15 @@
 <template>
   <div id="app">
-    <feed></feed>
+    <router-view></router-view>
   </div>
 </template>
 
 <script>
-import store from './store/index';
-import Feed from "./views/Feed";
+import store from "./store/index";
 
 export default {
   name: "app",
-  store,
-  components: {
-    Feed
-  }
+  store
 };
 </script>
 
