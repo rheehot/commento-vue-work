@@ -11,6 +11,7 @@ export default async function getDetailFromApi(id) {
     title: info.title,
     contents: info.contents,
     created: info.created_at,
+    email: info.user.email,
     replies: info.reply.map(r => ({
       name: r.user.name,
       created: r.created_at,

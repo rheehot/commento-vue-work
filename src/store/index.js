@@ -10,6 +10,7 @@ export const UPDATE_ORD = "UPDATE_ORD";
 export const UPDATE_CATEGORY = "UPDATE_CATEGORY";
 export const UPDATE_LIMIT = "UPDATE_LIMIT";
 export const UPDATE_DETAIL = "UPDATE_DETAIL";
+export const UPDATE_SEARCH = "UPDATE_SEARCH";
 export const TOGGLE_FILTER = "TOGGLE_FILTER";
 export const TOGGLE_CATEGORY = "TOGGLE_CATEGORY";
 
@@ -19,6 +20,7 @@ export default new Vuex.Store({
     ord: "asc",
     categories: [{ id: "", name: "", checked: true }],
     limit: 8,
+    search: "",
     posts: [
       {
         id: "",
@@ -32,6 +34,7 @@ export default new Vuex.Store({
       }
     ],
     detail: {
+      email: "",
       title: "",
       contents: "",
       created: "",
@@ -47,8 +50,11 @@ export default new Vuex.Store({
   },
   mutations: {
     [ADD_POST](state, { posts }) {
-      for (let i = 0; i < posts.length; i++) {
-        Vue.set(state.posts, i, posts[i]);
+      const filterdPosts = posts.filter(post =>
+        post.contents.includes(state.search)
+      );
+      for (let i = 0; i < filterdPosts.length; i++) {
+        Vue.set(state.posts, i, filterdPosts[i]);
       }
     },
     [UPDATE_ORD](state, { ord }) {
@@ -66,6 +72,11 @@ export default new Vuex.Store({
     },
     [UPDATE_LIMIT](state, { limit }) {
       state.limit = limit;
+    },
+    [UPDATE_SEARCH](state, { search }) {
+      state.search = search;
+      state.limit = 10;
+      Vue.set(state, "posts", []);
     },
     [TOGGLE_FILTER](state) {
       state.isFilterClicked = !state.isFilterClicked;

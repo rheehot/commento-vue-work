@@ -1,32 +1,43 @@
 <template>
-  <div class="filter">
-    <div class="filter__select">
-      <button
-        @click="onClickAsc"
-        :class="[ord === 'asc' ? activeElementClass : elementClass]"
-      >
-        <span></span>오름차순
-      </button>
-      <button
-        @click="onClickDesc"
-        :class="[ord === 'desc' ? activeElementClass : elementClass]"
-      >
-        <span></span>내림차순
-      </button>
+  <div>
+    <div class="filter">
+      <div class="filter__select">
+        <button
+          @click="onClickAsc"
+          :class="[ord === 'asc' ? activeElementClass : elementClass]"
+        >
+          <span></span>오름차순
+        </button>
+        <button
+          @click="onClickDesc"
+          :class="[ord === 'desc' ? activeElementClass : elementClass]"
+        >
+          <span></span>내림차순
+        </button>
+      </div>
+      <button @click="onClickFilter" class="filter__button">필터</button>
     </div>
-    <button @click="onClickFilter" class="filter__button">필터</button>
+    <input
+      @input="onInputSearch"
+      v-model="search"
+      class="search"
+      type="text"
+      placeholder="검색"
+    />
   </div>
 </template>
 
 <script>
 import { mapState } from "vuex";
-import { UPDATE_ORD, TOGGLE_FILTER } from "../../store/index";
+import { UPDATE_ORD, TOGGLE_FILTER, UPDATE_SEARCH } from "../../store/index";
 
+let debounceTimeout = null;
 export default {
   data() {
     return {
       elementClass: "filter__element",
-      activeElementClass: "filter__element--active"
+      activeElementClass: "filter__element--active",
+      search: ""
     };
   },
   methods: {
@@ -38,6 +49,12 @@ export default {
     },
     onClickFilter() {
       this.$store.commit(TOGGLE_FILTER);
+    },
+    onInputSearch() {
+      if (debounceTimeout) clearTimeout(debounceTimeout);
+      debounceTimeout = setTimeout(() => {
+        this.$store.commit(UPDATE_SEARCH, { search: this.search });
+      }, 1000);
     }
   },
   computed: {
@@ -94,9 +111,20 @@ export default {
       font-weight: bold;
 
       span {
-        background-color: #00c854;
+        background-color: $primary-green;
       }
     }
+  }
+}
+
+.search {
+  margin-bottom: 1rem;
+  border-radius: 3px;
+  border: 1px solid $primary-grey;
+  padding: 0.3rem 1rem;
+
+  &::placeholder {
+    color: rgba(0, 0, 0, 0.5);
   }
 }
 </style>

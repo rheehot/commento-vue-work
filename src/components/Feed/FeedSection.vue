@@ -41,10 +41,18 @@ export default {
     InfiniteLoading
   },
   computed: {
-    ...mapState(["posts", "ord", "categories", "limit", "isFilterClicked"]),
+    ...mapState([
+      "posts",
+      "search",
+      "ord",
+      "categories",
+      "limit",
+      "isFilterClicked"
+    ]),
     infiniteId() {
       return (
         this.ord +
+        this.search +
         this.categories.filter(c => c.checked).reduce((a, c) => a + c.name, 0)
       );
     }

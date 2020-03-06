@@ -3,6 +3,7 @@
     <div class="wrapper">
       <div class="detail">
         <div class="detail__main">
+          <h3>작성자: {{ detail.email }}</h3>
           <h2>{{ detail.title }}</h2>
           <p>{{ detail.contents }}</p>
           <span>{{ detail.created }}</span>
@@ -46,6 +47,10 @@ export default {
   &__main {
     max-width: 1140px;
     border: solid 1px $primary-green;
+
+    h3 {
+      margin-bottom: 1rem;
+    }
 
     @extend %detail-style;
   }

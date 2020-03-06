@@ -2,7 +2,7 @@
   <div class="post">
     <div class="post__intro">
       <span>{{ post.categoryName }}</span>
-      <span>{{ post.categoryId }}</span>
+      <span>카테고리 아이디: {{ post.categoryId }}</span>
     </div>
     <hr class="divider" />
     <div class="post__create">
